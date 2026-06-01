@@ -21,7 +21,7 @@ export default function NewReport() {
 
     const handleSubmit = async () => {
         try {
-            await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/addNewReport`, formData);
+            await axios.post(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/addNewReport`, formData);
             alert("Report added successfully")
         } catch (error) {
             console.log(error)

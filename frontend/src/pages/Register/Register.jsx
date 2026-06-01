@@ -25,7 +25,7 @@ export default function Register() {
         }
 
         try {
-            await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/register`, formData);
+            await axios.post(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/register`, formData);
             navigate("/login")
         } catch (error) {
             setError("Username or Email already exists.")

@@ -12,7 +12,7 @@ const Sector = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/sector`);
+            const response = await axios.get(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/sector`);
             const data = response.data;
             for (let i = 0; i < 6; i++) {
                 localStorage.setItem(`sector${i}`, `${data[i].sector}`)

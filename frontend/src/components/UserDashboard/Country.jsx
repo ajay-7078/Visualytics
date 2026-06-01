@@ -9,7 +9,7 @@ const CountryData = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/country`);
+            const response = await axios.get(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/country`);
             const data = response.data;
             data.sort((a, b) => {
                 if (a.countryCounts < b.countryCounts) {

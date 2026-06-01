@@ -65,7 +65,7 @@ export default function ChangePassword() {
             setMessage('')
             const { prevPassword, newPassword, confNewPassword } = formState;
             try {
-                await axios.put(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/change-password`, { prevPassword, newPassword, confNewPassword }, {
+                await axios.put(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/change-password`, { prevPassword, newPassword, confNewPassword }, {
                     withCredentials: true
                 })
                 // toast.success('Password changed successfully!')

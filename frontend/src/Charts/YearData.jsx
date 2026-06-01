@@ -30,7 +30,7 @@ const YearData = () => {
         try {
             const yearNumbers = []
             const reportCounts = []
-            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/year`);
+            const response = await axios.get(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/year`);
             const fetchedData = response.data
             yearNumbers.push(...fetchedData.map(item => item.year))
             reportCounts.push(...fetchedData.map(item => item.yearCounts))

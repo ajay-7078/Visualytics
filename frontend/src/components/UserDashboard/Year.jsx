@@ -14,7 +14,7 @@ const Year = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/year`);
+            const response = await axios.get(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/year`);
             const data = response.data;
             setUpLine(data)
 

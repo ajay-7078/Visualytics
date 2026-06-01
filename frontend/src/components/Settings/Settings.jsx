@@ -26,7 +26,7 @@ export default function Settings() {
                     throw new Error("No access token found");
                 }
 
-                axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/deactivation`, {},{
+                axios.post(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/deactivation`, {},{
                     headers: {
                         Authorization: `${token}`
                     }

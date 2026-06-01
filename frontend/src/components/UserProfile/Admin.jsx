@@ -24,7 +24,7 @@ export default function Admin() {
             return;
         }
         try {
-            await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/upload-profile`, data, {
+            await axios.post(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/upload-profile`, data, {
                 headers: {Authorization: `${token}`}
             })
             setEditAble(false)
@@ -41,7 +41,7 @@ export default function Admin() {
         }
 
         try {
-            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/currentUser` , {
+            const response = await axios.get(`${import.meta.env.VITE_VISUALYTICS_API_URL}/api/users/currentUser` , {
                 headers: {Authorization: `${token}`}
             });
             const user = response.data.data;

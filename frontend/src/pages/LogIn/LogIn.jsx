@@ -18,14 +18,18 @@ export default function LogIn() {
         const { id, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [id]: value }));
     }, []);
-    console.log(import.meta.VITE_VISUALYTICS_API_URL)
+
+    const rawBaseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_VISUALYTICS_API_URL;
+    const baseUrl = rawBaseUrl && rawBaseUrl !== 'undefined' && rawBaseUrl !== 'null'
+        ? rawBaseUrl
+        : "http://localhost:4000";
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         const { usernameOrEmail, password } = formData;
         const isEmail = usernameOrEmail.includes('@');
         try {
-            const response = await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/login`, {
+            const response = await axios.post(`${baseUrl}/api/users/login`, {
                 [isEmail ? 'email' : 'username']: usernameOrEmail,
                 password
             }, {
