@@ -14,7 +14,7 @@ const Pestle = () => {
 
     const fetchData = async() => {
         try {
-            const response = await axios.get("http://localhost:4000/api/users/pestle");
+            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/pestle`);
             const data = response.data;
             setUpBar(data)
         } catch (error) {

@@ -27,7 +27,7 @@ const CountryData = () => {
             try {
                 const noOfCountries = []
                 const noOfReports = []
-                const response = await axios.get("http://localhost:4000/api/users/country");
+                const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/country`);
                 const fetchedData = response.data
                 noOfCountries.push(...fetchedData.map(item => item.country))
                 noOfReports.push(...fetchedData.map(item => item.countryCounts))

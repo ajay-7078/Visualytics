@@ -22,7 +22,7 @@ export const SidebarRoutes = () => {
                     throw new Error("No access token found");
                 }
 
-                await axios.post("http://localhost:4000/api/users/logout", {}, {
+                await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/logout`, {}, {
                     headers: {
                         Authorization: `${token}`,
                     },

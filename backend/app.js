@@ -1,27 +1,35 @@
 import express from 'express';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-const app = express()
+const app = express();
 
-app.use(async (req, res, next) => {
-    const origin = req.headers.origin;
-    const allowedOrigins = [process.env.CORS_LOCAL, process.env.CORS_ORIGIN];
+const allowedOrigins = [
+  ...((process.env.CORS_LOCAL || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)),
+  ...((process.env.CORS_ORIGIN || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)),
+];
 
-    if (allowedOrigins.includes(origin) || /^http:\/\/localhost:\d+$/.test(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || /^https?:\/\/localhost:\d+$/.test(origin)) {
+      return callback(null, true);
     }
+    return callback(new Error(`CORS policy does not allow access from origin ${origin}`));
+  },
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
 
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200).end();
-        return;
-    }
-
-    return await next();
-});
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));

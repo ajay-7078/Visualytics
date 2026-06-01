@@ -28,7 +28,7 @@ const IntensityData =() => {
             try {
                 const intensityCount = []
                 const noOfReports = []
-                const response = await axios.get("http://localhost:4000/api/users/intensity");
+                const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/intensity`);
                 const fetchedData = response.data
                 console.log(response.data)
                 intensityCount.push(...fetchedData.map(item => item.intensity))

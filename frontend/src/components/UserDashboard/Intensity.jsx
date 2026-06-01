@@ -14,7 +14,7 @@ const Intensity =() => {
 
     const fetchData = async() => {
         try {
-            const response = await axios.get("http://localhost:4000/api/users/intensity");
+            const response = await axios.get(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/intensity`);
             const data = response.data;
             setUpHistogram(data)
         } catch (error) {

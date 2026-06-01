@@ -18,13 +18,14 @@ export default function LogIn() {
         const { id, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [id]: value }));
     }, []);
+    console.log(import.meta.VITE_VISUALYTICS_API_URL)
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         const { usernameOrEmail, password } = formData;
         const isEmail = usernameOrEmail.includes('@');
         try {
-            const response = await axios.post('http://localhost:4000/api/users/login', {
+            const response = await axios.post(`${import.meta.VITE_VISUALYTICS_API_URL}/api/users/login`, {
                 [isEmail ? 'email' : 'username']: usernameOrEmail,
                 password
             }, {
