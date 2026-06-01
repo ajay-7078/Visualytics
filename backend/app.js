@@ -1,0 +1,42 @@
+import express from 'express';
+import cookieParser from 'cookie-parser';
+
+const app = express()
+
+app.use(async (req, res, next) => {
+    const origin = req.headers.origin;
+    const allowedOrigins = [process.env.CORS_LOCAL, process.env.CORS_ORIGIN];
+
+    if (allowedOrigins.includes(origin) || /^http:\/\/localhost:\d+$/.test(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200).end();
+        return;
+    }
+
+    return await next();
+});
+
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+app.use(express.static('public'));
+app.use(cookieParser());
+
+app.use( (err, req, res, next) => {
+    console.log(err.stack);
+    res.status(500).json({ message: 'Internal server error' });
+})
+
+// import router
+import userRouter from "./src/routes/user.routes.js"
+
+// route declaration
+app.use("/api/users", userRouter)
+
+export { app }
